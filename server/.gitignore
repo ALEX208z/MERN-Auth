@@ -1,0 +1,35 @@
+# Dependency directories
+node_modules/
+vendor/
+target/ # For Java/Maven projects
+
+# Build artifacts and compiled files
+/build/
+/dist/
+bin/
+*.class # For Java
+
+# Log files and runtime data
+logs/
+*.log
+*.sqlite # Default SQLite databases if applicable
+
+# Environment variables and sensitive data
+.env
+.flaskenv
+config/*.env
+*.key # Private keys
+
+# OS and IDE specific files
+.DS_Store # macOS specific
+.idea/ # IntelliJ IDEA specific
+.vscode/ # VS Code specific
+*.swp # Vim swap files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files (optional, generally recommended to include in version control)
+# package-lock.json
+# yarn.lock
+# Pipfile.lock
