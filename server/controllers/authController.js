@@ -106,7 +106,8 @@ export const logout = async (req, res) => {
 // Send Verification OTP to the User's Email
 export const sendVerifyOtp = async (req, res) => {
   try {
-    const { userId } = req.body;
+    // const { userId } = req.body;
+    const userId = req.userId;
 
     const user = await userModel.findById(userId);
 
@@ -117,7 +118,7 @@ export const sendVerifyOtp = async (req, res) => {
       });
     }
 
-    const otp = String(Math.floor(100000 + Math.random * 900000));
+    const otp = String(Math.floor(100000 + Math.random() * 900000));
 
     user.verifyOtp = otp;
     user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000;
@@ -143,7 +144,11 @@ export const sendVerifyOtp = async (req, res) => {
 };
 
 export const verifyEmail = async (req, res) => {
-  const { userId, otp } = req.body;
+  // const { userId, otp } = req.body;    // userId won't be in the req.body
+
+  // Fix : get userId from middleware and otp from body
+  const {otp} = req.body;
+  const userId = req.userId;
 
   if (!userId || !otp) {
     return res.json({ success: false, message: "Missing Details" });
