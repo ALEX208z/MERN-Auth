@@ -143,6 +143,8 @@ export const sendVerifyOtp = async (req, res) => {
   }
 };
 
+
+// Verify the Email using the OTP
 export const verifyEmail = async (req, res) => {
   // const { userId, otp } = req.body;    // userId won't be in the req.body
 
@@ -179,3 +181,18 @@ export const verifyEmail = async (req, res) => {
     return res.json({ success: false, message: error.message });
   }
 };
+
+
+
+// Check if user is authenticated
+export const isAuthenticated = async(req, res) => {
+  try {
+    return res.json({success: true})
+  } catch (error) {
+    return res.json({success: false, message: error.message});
+  }
+}
+
+
+// Send Password Reset OTP
+
