@@ -1,12 +1,11 @@
 
-import './App.css'
 
 function App() {
   
 
   return (
     <>
-      <h1>MERN-Auth</h1>
+      <h1 className="text-amber-500">MERN-Auth</h1>
     </>
   )
 }
