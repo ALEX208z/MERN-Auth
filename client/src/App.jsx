@@ -1,11 +1,14 @@
-
+import { Route, Routes } from "react-router-dom"
+import Home from "../pages/Home"
 
 function App() {
   
 
   return (
     <>
-      <h1 className="text-amber-500">MERN-Auth</h1>
+      <Routes>
+        <Route path="/" element={Home}/>
+      </Routes>
     </>
   )
 }
