@@ -267,3 +267,8 @@ export const resetPassword = async(req, res) => {
     return res.json({success: false, message: error.message});
   }
 }
+
+
+
+
+// Auth controller is the file that handles all authentication-related logic — anything to do with who the user is and proving their identity.
