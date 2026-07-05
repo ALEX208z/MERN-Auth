@@ -38,7 +38,7 @@ export const register = async (req, res) => {
       from: process.env.SENDER_EMAIL,
       to: email,
       subject: "Welcome",
-      text: `Welcome to the website. Your account has been craeted with email id: ${email}`,
+      text: `Welcome to the website. Your account has been created with email id: ${email}`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -50,8 +50,10 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  // Step 1 : get inputs
   const { email, password } = req.body;
 
+  // Step 2 : Validate inputs
   if (!email || !password) {
     return res.json({
       success: false,
@@ -60,6 +62,7 @@ export const login = async (req, res) => {
   }
 
   try {
+    // Step 3 : check edge cases (DB lookups)
     const user = await userModel.findOne({ email });
 
     if (!user) {
@@ -72,6 +75,7 @@ export const login = async (req, res) => {
       return res.json({ success: false, message: "Invalid password" });
     }
 
+    // Step 4 : core logic (the actual thing)
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
@@ -83,6 +87,7 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    // Step 5 : success response
     return res.json({ success: true });
   } catch (error) {
     return res.json({ success: false, message: error.message });
