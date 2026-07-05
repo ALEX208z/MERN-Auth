@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { assets } from "../src/assets/assets";
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
+
   const [state, setState] = useState("Sign Up");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen px-6 sm:px-0 bg-linear-to-br from-blue-200 to-purple-400">
       <img
+        onClick={() => navigate('/')}
         className="absolute left-5 sm:left-20 top-5 w-28 sm:w-32 cursor-pointer"
         src={assets.logo}
         alt=""
@@ -25,6 +35,8 @@ const Login = () => {
             <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C] ">
               <img src={assets.person_icon} alt="" />
               <input
+                onChange={e => setName(e.target.value)}
+                value = {name}
                 className="bg-transparent outline-none"
                 type="text"
                 placeholder="Full Name"
@@ -36,6 +48,8 @@ const Login = () => {
           <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C] ">
             <img src={assets.mail_icon} alt="" />
             <input
+              onChange={e => setEmail(e.target.value)}
+              value = {email}
               className="bg-transparent outline-none"
               type="email"
               placeholder="Email id"
@@ -45,6 +59,8 @@ const Login = () => {
           <div className="mb-4 flex items-center gap-3 w-full px-5 py-2.5 rounded-full bg-[#333A5C] ">
             <img src={assets.lock_icon} alt="" />
             <input
+              onChange={e => setPassword(e.target.value)}
+              value = {password}
               className="bg-transparent outline-none"
               type="password"
               placeholder="Password"
@@ -52,7 +68,7 @@ const Login = () => {
             />
           </div>
 
-          <p className="mb-4 text-indigo-500 cursor-pointer">Forgot password</p>
+          <p onClick={() => navigate('/reset-password')} className="mb-4 text-indigo-500 cursor-pointer">Forgot password</p>
 
           <button className="w-full py-2.5 rounded-full bg-linear-to-r from-indigo-500 to-indigo-900 text-white font-medium">
             {state}
