@@ -2,11 +2,25 @@ import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
 
   const navigate = useNavigate()
   const {userData, backendUrl, setUserData, setIsLoggedIn} = useContext(AppContext)
+
+  const logout = async() => {
+    try {
+      axios.defaults.withCredentials = true
+      const {data} = await axios.post(backendUrl + '/api/auth/logout')
+      data.success && setIsLoggedIn(false)
+      data.success && setUserData(false)
+      navigate('/')
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
 
   return (
@@ -19,7 +33,7 @@ const Navbar = () => {
             <ul className='list-none, m-0 p-2 bg-gray-100 text-sm'>
               {!userData.isAccountVerified && <li className='py-1 px-2 hover:bg-gray-200 cursor-pointer'>Verify email</li>
               }
-              <li className='py-1 px-2 hover:bg-gray-200 cursor-pointer pr-10'>Logout</li>
+              <li onClick={logout} className='py-1 px-2 hover:bg-gray-200 cursor-pointer pr-10'>Logout</li>
             </ul>
 
           </div>
