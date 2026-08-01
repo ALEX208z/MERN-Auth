@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { useNavigate  } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 const EmailVerify = () => {
 
   // axios.defaults.withCredentials = true
-  const {backendUrl, getUserData} = useContext(AppContext)
+  const {backendUrl, isLoggedIn, userData, getUserData} = useContext(AppContext)
 
   const navigate = useNavigate();
   
@@ -56,6 +56,10 @@ const EmailVerify = () => {
       toast.error(error.message)
     }
   }
+
+  useEffect(() => {
+    isLoggedIn && userData && userData.isAccountVerified && navigate('/')
+  }, [isLoggedIn, userData])
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-blue-200 to-purple-400">
